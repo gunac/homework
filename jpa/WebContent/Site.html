@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="js/jquery.js" type="text/javascript"></script>
+<link href="css/bootstrap.css" rel="stylesheet"/>
+</head>
+<body>
+
+<div class="container">
+<h1>Site Information</h1>
+
+<input id="id" placeholder=" Site id" class="form-control"/>
+<input id="name" placeholder="Site name" class="form-control"/>
+<input id="latitude" placeholder="Latitude" class="form-control" />
+<input id="longitude" placeholder="Longitude" class="form-control"/>
+<div>
+<button id="create" class="btn btn-block btn-primary">Create</button>
+<button id="update" class="btn btn-block btn-primary">Update</button>
+<button id="delete" class="btn btn-block btn-primary">Delete</button>
+<button id="read" class="btn btn-block btn-primary">Read</button>
+
+</div>
+<script>
+$(function(){
+	// var newSite = {"name":"Site 9","latitude":999,"longitude":9999};
+	// alert("hello");
+	// createSite(newSite);
+	//updateSite(9, newSite)
+	 //alert("done");
+	
+	$("#create").click(createHandler);
+	// $("#read").click(readHandler);
+	$("#update").click(updateHandler);
+	$("#delete").click(deleteHandler);
+	alert("end");
+});
+
+function createHandler(){
+	var newSite ={
+					
+					"id" : $("#id").val(),
+					"name":$("#name").val(),
+					"latitude":$("#latitude").val(),
+					"longitude":$("#longitude").val()		
+				};
+	createSite(newSite);
+	alert("out")
+}
+
+function createSite(site){
+	alert("inside");
+	$.ajax({		
+		url: "http://localhost:8080/jpa/api/site",
+		type: "post",
+		data: JSON.stringify(site),
+		dataType: "json",
+		contentType: "application/json",
+		success:function(response){
+			console.log(response);
+		}
+	});	
+} 
+
+function updateHandler(){
+	var newSite ={
+					
+					"id" : $("#id").val(),
+					"name":$("#name").val(),
+					"latitude":$("#latitude").val(),
+					"longitude":$("#longitude").val()		
+				};
+	updateSite($("#id").val(), newSite);
+	alert("out")
+}
+
+function updateSite(id,site){
+	alert("inside");
+	$.ajax({		
+		url: "http://localhost:8080/jpa/api/site/" +id,
+		type: "put",
+		data: JSON.stringify(site),
+		dataType: "json",
+		contentType: "application/json",
+		success:function(response){
+			console.log(response);
+		}
+	});	
+} 
+
+function deleteHandler(){	
+	alert("inside delete handler");
+	deleteSite($("#id").val());
+	alert("out")
+}
+
+function deleteSite(id){
+	alert("inside");
+	$.ajax({		
+		url: "http://localhost:8080/jpa/api/site/" +id,
+		type: "delete",
+		data: JSON.stringify(site),
+		dataType: "json",
+		contentType: "application/json",
+		success:function(response){
+			console.log(response);
+		}
+	});	
+} 
+
+
+
+</script>
+
+</div>
+ 
+</body>
+</html>
